@@ -13,7 +13,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ## Authority and scope
 
 - Read `../docs/BRAND_GUIDELINES.md` thoroughly before changes. It is the canonical brand/production reference; this file summarizes it. Preserve synced `sources/` and `../docs/` files.
-- This task authorizes a local design-system foundation and homepage with temporary image placeholders. Collection routes, product-detail pages, cart behavior, checkout, image generation, and deployment are deferred.
+- The current authorized scope includes the homepage foundation, Shop Coffee collection, and four product-detail pages with labeled image placeholders. Cart behavior, checkout, image generation, and deployment remain deferred.
 - Explain and obtain user approval before changing approved creative decisions. Ordinary responsive rearrangement and optical corrections within the brief are allowed.
 - This is an independent fictional portfolio concept, not a real coffee business. Include a readable footer disclosure. Do not invent provenance, commercial activity, reviews, or measured results.
 
@@ -57,11 +57,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Dark Cherry/Cream and Cobalt/Cream support normal text. Cream/Persimmon and Dark Cherry/Persimmon only for large text (≥24px regular or ≥19px bold). Avoid Dark Cherry/Cobalt and Persimmon/Cobalt for information/essential controls. Do not change palette hex values to fix contrast.
 - Translucent Dark Cherry only for nonessential dividers; essential boundaries/states need contrast. Selected state needs cues beyond color.
 - Mobile Menu: keyboard-accessible sheet, visible Close, focus containment, Escape, focus restoration. Prefer native dialog over heavy dependencies.
-- Homepage navigation uses meaningful section anchors while future routes are absent. Shopping controls are disabled with a visible explanation. No broken routes or simulated cart updates.
+- Shared navigation links Shop Coffee to `/shop` and Our Approach/Brew Guide to homepage sections. Product image/name links use `/products/[slug]`. Shopping controls remain disabled with a visible explanation. Quantity controls are local presentation state only; no cart effects, persistence, or subtotal calculations.
 - Optional transitions: 150–220ms; respect reduced motion. No parallax, scroll hijacking, looping logo, autoplay video, or motion-dependent content.
 - Validate keyboard, zoom/text resizing, representative widths including 320px, reduced motion. Do not claim WCAG compliance from this brief alone.
 - Brew recipe: suggested filter starting point, not tested product performance; 15g coffee, 250g water, approximately 93°C, medium grind, 2:30–3:30. Adjust to equipment/taste; whole beans require a grinder.
-- Future product pages require fictional-product disclosure. Future checkout must be unmistakably non-transactional; no real personal/card data, external communications, or order-placement claim. Cart/persistence/bundle/shipping tests belong to the future authorized scope.
+- Every product page includes “Fictional coffee product created for a portfolio concept.” Future checkout must be unmistakably non-transactional; no real personal/card data, external communications, or order-placement claim. Cart/persistence/bundle/shipping tests belong to the future authorized scope.
 
 ## Repository and validation conventions
 
@@ -70,4 +70,13 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Use CSS custom properties/named classes for the foundation; align Tailwind mappings with approved tokens. Avoid backends, services, unnecessary libraries/dependencies, or data collection.
 - Read relevant installed Next.js guides before coding; do not assume older APIs, routing types, lint integration, or caching behavior. Preserve the generated Next.js instructions above.
 - Run `npm run lint`, `npm run typecheck` (route type generation + `tsc --noEmit`), and `npm run build`. Validate implemented layout/interactions; report limits candidly.
-- Do not publish/deploy, generate assets, manufacture packaging, process purchases, send communications, or implement deferred features based solely on the brand brief. Current work is local homepage implementation.
+- Do not publish/deploy, generate assets, manufacture packaging, process purchases, send communications, or implement deferred features based solely on the brand brief. Current work is local homepage, collection, and product-detail implementation.
+
+## Collection and product-page conventions
+
+- `src/app/shop/page.tsx` renders the collection. Four explicit routes under `src/app/products/` share `src/components/product-detail.tsx` and centralized catalog data. Keep this finite route set aligned with the approved catalog; unknown product URLs receive a routing-level HTTP 404 and branded recovery page.
+- Shared header/footer/skip link live in the root layout. Avoid duplicate landmarks or duplicate disclosure IDs.
+- Use the same `CoffeeCard` component on homepage and collection. Collection defaults to all four entries in approved order; single-level taste filters show only the matching coffee, never the bundle. Cobalt/Cream selected filters include a checkmark and `aria-pressed`; announce the result count and offer “Show all coffee” in filtered states.
+- Detail pages show taste, exact notes, price, fixed format, quantity, and a disabled Add to cart control. Include approved short descriptions, grinder requirement, proposed brew suitability, fictional origin/process/roast, ingredient/storage information, suggested filter recipe, demo shipping terms, and concept disclosure. No unapproved variants or product attributes.
+- THE GOOD SET derives its contents from existing coffee IDs and states each 250g bag’s caffeination status and total 750g. No fourth packaging format.
+- Use reserved front/three-quarter image slots for individual coffees and the collection slot for the bundle; no rear-photo claims or hover-dependent galleries. Mobile images precede purchase information.

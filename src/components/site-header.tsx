@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { navigation } from "@/content/brand";
 import { Wordmark } from "@/components/wordmark";
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const menuRef = useRef<HTMLButtonElement>(null);
   const navigationTargetRef = useRef<string | null>(null);
@@ -33,14 +36,18 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <a className="logo-link" href="#top" aria-label="GOOD INTERVAL home">
+        <Link className="logo-link" href="/" aria-label="GOOD INTERVAL home">
           <Wordmark />
-        </a>
+        </Link>
         <nav className="desktop-navigation" aria-label="Main navigation">
           {navigation.map((item) => (
-            <a key={item.href} href={item.href}>
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={pathname === item.href ? "page" : undefined}
+            >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
         <div className="header-actions">
@@ -112,16 +119,19 @@ export function SiteHeader() {
         </div>
         <nav aria-label="Mobile navigation">
           {navigation.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               onClick={() => {
-                navigationTargetRef.current = item.href;
+                navigationTargetRef.current =
+                  pathname === "/" && item.href.startsWith("/#")
+                    ? item.href.slice(1)
+                    : null;
                 dialogRef.current?.close();
               }}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
       </dialog>

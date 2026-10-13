@@ -14,14 +14,17 @@ export const brand = {
     body: "GOOD INTERVAL is built around that small pleasure: coffee with character, clear choices, and room to enjoy it. From a bright first brew to a familiar afternoon cup, our collection brings thoughtful design to an everyday ritual.",
   },
   disclosure: "Independent portfolio concept — not a retail store.",
-  previewNotice:
-    "Homepage preview. Shopping functionality is not available yet.",
+  previewNotice: "Shopping preview. Cart and checkout are not available yet.",
+  productDisclosure:
+    "Fictional coffee product created for a portfolio concept.",
+  shippingProposal:
+    "Demo shipping proposal: US standard delivery is $5.00, waived on merchandise subtotals of $50.00 or more. These are simulation terms, not a fulfillment promise. Sales tax is not calculated. No orders or deliveries are processed in this preview.",
 } as const;
 
 export const navigation = [
-  { label: "Shop Coffee", href: "#coffee" },
-  { label: "Our Approach", href: "#our-approach" },
-  { label: "Brew Guide", href: "#brew-guide" },
+  { label: "Shop Coffee", href: "/shop" },
+  { label: "Our Approach", href: "/#our-approach" },
+  { label: "Brew Guide", href: "/#brew-guide" },
 ] as const;
 
 export const startingBrew = [
