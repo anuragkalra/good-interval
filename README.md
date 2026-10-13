@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GOOD INTERVAL
 
-## Getting Started
+An independent fictional specialty-coffee e-commerce portfolio concept. This phase implements the responsive homepage and approved design-system foundation only.
 
-First, run the development server:
+## Local development
 
-```bash
+```sh
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Validation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm run lint
+npm run typecheck
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Read [AGENTS.md](AGENTS.md) and the canonical [brand guidelines](../docs/BRAND_GUIDELINES.md) before editing. The project uses Next.js 16.4 App Router, React 19.3, strict TypeScript, and the existing Tailwind 4/Turbopack setup.
 
-## Learn More
+## Foundation
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/globals.css`: approved palette, typography, spacing, controls, grid, focus, motion, responsive rules.
+- `src/content/brand.ts`: approved messaging, section navigation, suggested starting brew recipe.
+- `src/content/catalog.ts`: fictional catalog; prices are integer USD cents.
+- `src/components/`: reusable header, temporary wordmark, image slots, coffee cards. Only the mobile menu needs a client boundary; it uses a native modal dialog.
+- `src/app/fonts/`: self-hosted Latin variable WOFF2 files for Manrope 700–800 and DM Sans 400–600, obtained from the official Google Fonts CSS API. No browser/build-time Google Fonts requests.
+- `public/licenses/`: respective original SIL Open Font License and copyright notices. Font source CSS request: `https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..600&family=Manrope:wght@700..800&display=swap`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Image slots are explicitly labeled temporary placeholders with reserved proportions. They are not approved photography or packaging artwork. The stacked live-text wordmark is provisional pending the canonical outlined vector master. Do not generate substitutes during this phase.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Homepage navigation uses section anchors. Purchase/cart controls are disabled and accompanied by a visible preview notice; no collection, product-detail, cart, checkout, persistence, or transactional behavior is implemented. The Brew Guide expands a brief suggested starting filter recipe within the homepage. Future routes/shopping behavior require a separate implementation task.

@@ -1,69 +1,192 @@
-import Image from "next/image";
+import { CoffeeCard } from "@/components/coffee-card";
+import { ImagePlaceholder } from "@/components/image-placeholder";
+import { SiteHeader } from "@/components/site-header";
+import { Wordmark } from "@/components/wordmark";
+import { brand, navigation, startingBrew } from "@/content/brand";
+import { coffees, formatPrice, goodSet } from "@/content/catalog";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div id="top">
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <SiteHeader />
+      <main id="main-content" tabIndex={-1}>
+        <section className="hero container" aria-labelledby="hero-title">
+          <div className="hero-copy">
+            <div className="hero-heading">
+              <p className="eyebrow hero-eyebrow">{brand.hero.eyebrow}</p>
+              <h1 id="hero-title">{brand.hero.headline}</h1>
+            </div>
+            <div className="hero-information">
+              <p className="intro">{brand.hero.description}</p>
+              <a className="button button-primary" href="#coffee">
+                {brand.hero.primaryAction}
+              </a>
+              <a className="text-link" href="#coffee">
+                {brand.hero.secondaryAction}
+              </a>
+            </div>
+          </div>
+          <ImagePlaceholder
+            variant="hero"
+            title="MIDDAY"
+            description="Lifestyle photograph · coffee, ceramic cup & wood"
+          />
+        </section>
+
+        <section
+          className="section container"
+          id="coffee"
+          tabIndex={-1}
+          aria-labelledby="coffee-title"
+        >
+          <div className="section-heading">
+            <h2 id="coffee-title">Find your good interval</h2>
+            <p className="intro">Find the cup you look forward to.</p>
+          </div>
+          <div className="coffee-grid">
+            {coffees.map((coffee) => (
+              <CoffeeCard key={coffee.id} coffee={coffee} />
+            ))}
+          </div>
+          <p className="metadata shopping-notice" id="shopping-notice">
+            {brand.previewNotice}
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+        </section>
+
+        <section
+          className="section container ritual"
+          id="our-approach"
+          tabIndex={-1}
+          aria-labelledby="approach-title"
+        >
+          <div className="ritual-image">
+            <ImagePlaceholder
+              variant="ritual"
+              title="DAYBREAK"
+              description="Brewing ritual photograph · glass dripper & carafe"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          </div>
+          <div className="ritual-copy">
+            <p className="eyebrow">Our approach</p>
+            <h2 id="approach-title">{brand.story.heading}</h2>
+            <div className="ritual-information">
+              <p>{brand.story.body}</p>
+              <a className="text-link" href="#brew-guide">
+                Explore the brew guide
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="section container good-set"
+          aria-labelledby="set-title"
+        >
+          <div className="set-copy">
+            <p className="eyebrow">The whole collection</p>
+            <h2 id="set-title">{goodSet.displayName}</h2>
+            <p className="intro">{goodSet.description}</p>
+            <ul className="set-contents" aria-label="Included coffees">
+              {goodSet.contents.map((id) => {
+                const coffee = coffees.find((item) => item.id === id)!;
+                return (
+                  <li key={id}>
+                    <span>
+                      {coffee.displayName}
+                      {coffee.decaf ? " · Decaf" : ""}
+                    </span>
+                    <span className="metadata">{coffee.weightGrams}g</span>
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="metadata">
+              3 × 250g whole bean · {goodSet.weightGrams}g total
+            </p>
+            <div className="set-purchase">
+              <span className="price">{formatPrice(goodSet.priceCents)}</span>
+              <button
+                className="button button-primary"
+                type="button"
+                disabled
+                aria-describedby="shopping-notice"
+              >
+                Add the set to cart
+              </button>
+            </div>
+          </div>
+          <ImagePlaceholder
+            variant="collection"
+            title={goodSet.name}
+            description="Collection photograph · Daybreak, Midday & After hours"
+          />
+        </section>
+
+        <section
+          className="section container brew-note"
+          id="brew-guide"
+          tabIndex={-1}
+          aria-labelledby="brew-title"
+        >
+          <div>
+            <p className="eyebrow">Your daily brew</p>
+            <h2 id="brew-title">Brew Guide</h2>
+          </div>
+          <div className="brew-information">
+            <p>
+              Start with 15g coffee and 250g water. A suggested starting point;
+              adjust to your equipment and taste. Whole beans require a grinder.
+            </p>
+            <details className="brew-guide">
+              <summary>Read the brew guide</summary>
+              <div className="brew-recipe">
+                <p className="metadata">
+                  Suggested filter recipe — a starting point, not a tested
+                  product recipe.
+                </p>
+                <dl>
+                  {startingBrew.map((item) => (
+                    <div key={item.label}>
+                      <dt>{item.label}</dt>
+                      <dd>{item.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </details>
+          </div>
+        </section>
       </main>
+
+      <footer className="site-footer">
+        <div className="container">
+          <div className="footer-main">
+            <a
+              className="logo-link"
+              href="#top"
+              aria-label="GOOD INTERVAL home"
+            >
+              <Wordmark />
+            </a>
+            <nav aria-label="Footer navigation">
+              {navigation.map((item) => (
+                <a key={item.href} href={item.href}>
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+          <div className="footer-information">
+            <p className="metadata">{brand.disclosure}</p>
+            <p className="metadata" id="preview-notice">
+              {brand.previewNotice}
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
